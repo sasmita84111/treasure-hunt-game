@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#087f6e">
+<title>Treasure Hunt — Island Dash</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#153b3a;--teal:#087f6e;--mint:#c9f6dd;--gold:#ffca55;--coral:#ff826b;--cream:#fffaf0;--panel:#ffffffec;--shadow:0 16px 42px #174c3d22}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#d8f8df,#fff1c6 55%,#c6f1f5);font-family:Nunito,system-ui,sans-serif;color:var(--ink);min-height:100vh}button,input{font:inherit}button{cursor:pointer;border:0}.app{max-width:1400px;margin:auto;padding:18px;min-height:100vh}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 auto 16px;max-width:1280px}.brand{display:flex;align-items:center;gap:10px;font-weight:1000;font-size:clamp(1.2rem,3vw,1.8rem);letter-spacing:-.04em}.brand-mark{display:grid;place-items:center;width:44px;height:44px;border-radius:15px;background:#fff;box-shadow:var(--shadow);font-size:24px}.tag{background:#ffffffa8;border:1px solid #ffffff;padding:8px 12px;border-radius:999px;font-size:.8rem;font-weight:900}.screen{display:none}.screen.active{display:block}.panel{background:var(--panel);border:1px solid #ffffffd9;border-radius:28px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;padding:clamp(20px,4vw,48px);max-width:1120px;margin:5vh auto}.eyebrow{color:var(--teal);font-weight:1000;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem}.hero h1{font-size:clamp(2.6rem,6vw,5.4rem);line-height:.94;letter-spacing:-.07em;margin:12px 0 18px}.hero h1 span{color:var(--teal)}.lead{font-size:1.08rem;line-height:1.65;color:#476a62;max-width:520px}.formline{display:flex;gap:10px;margin:22px 0 12px;flex-wrap:wrap}.field{min-width:0;width:100%;padding:13px 15px;border:2px solid #d8eee2;background:white;border-radius:14px;color:var(--ink);outline:none}.field:focus{border-color:var(--teal)}.name-field{max-width:270px}.btn{border-radius:14px;padding:13px 18px;font-weight:1000;transition:transform .15s,filter .15s;box-shadow:0 5px 0 #064f45}.btn:hover{filter:brightness(1.04);transform:translateY(-1px)}.btn:active{transform:translateY(2px);box-shadow:0 2px 0 #064f45}.primary{background:var(--teal);color:white}.gold{background:var(--gold);color:#553d06;box-shadow:0 5px 0 #b47a15}.secondary{background:#e4f8eb;color:var(--teal);box-shadow:0 5px 0 #9ed9bb}.small{padding:9px 13px;font-size:.88rem}.character-row{display:flex;gap:8px;margin:12px 0 18px;flex-wrap:wrap}.char{width:47px;height:47px;border:2px solid transparent;border-radius:15px;background:#fff;font-size:24px}.char.selected{border-color:var(--teal);background:#d5f8e4;box-shadow:0 0 0 3px #087f6e22}.art{min-height:350px;position:relative;display:grid;place-items:center;overflow:hidden;border-radius:24px;background:linear-gradient(#9ee8ee 0 38%,#54c7b1 38% 100%)}.sun{position:absolute;right:12%;top:10%;width:70px;height:70px;background:#ffe17d;border-radius:50%;box-shadow:0 0 0 15px #ffe17d33}.island{position:relative;width:82%;height:230px;background:#55b96d;border:14px solid #f8d98b;border-radius:44% 56% 47% 53% / 42% 42% 58% 58%;box-shadow:0 20px 0 #269b94;transform:rotate(-7deg);display:grid;place-items:center}.island:before{content:"";position:absolute;inset:20px;border:2px dashed #a4df8e;border-radius:45%}.tree{position:absolute;font-size:42px;filter:drop-shadow(0 5px 0 #328e54)}.tree.t1{top:18%;left:15%}.tree.t2{bottom:12%;right:15%}.tree.t3{top:22%;right:18%;font-size:32px}.chest{font-size:72px;filter:drop-shadow(0 8px 0 #247b50);transform:rotate(7deg)}.bird{position:absolute;left:14%;top:20%;font-size:28px;animation:float 3s ease-in-out infinite}.coin{position:absolute;right:14%;bottom:17%;font-size:36px;animation:float 2.4s ease-in-out infinite}@keyframes float{50%{transform:translateY(-10px) rotate(5deg)}}.how{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}.how span{background:#f1fbf4;border-radius:12px;padding:10px 12px;font-size:.83rem;font-weight:900}.joinbox{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.joinbox .field{max-width:210px}.message{min-height:24px;color:#b84c36;font-size:.9rem;font-weight:800;margin-top:8px}.lobby{max-width:850px;margin:5vh auto;padding:clamp(20px,4vw,38px)}.lobby-head{display:flex;justify-content:space-between;gap:16px;align-items:start;flex-wrap:wrap}.lobby h2,.results h2{font-size:clamp(2rem,5vw,3.2rem);letter-spacing:-.05em;margin:8px 0}.roomcode{font-size:1.5rem;font-weight:1000;letter-spacing:.15em;background:#e4f8eb;padding:12px 16px;border-radius:14px}.player-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:20px 0}.player-card{background:white;border:1px solid #e2f0e5;border-radius:17px;padding:14px;display:flex;align-items:center;gap:12px}.player-avatar{width:46px;height:46px;display:grid;place-items:center;background:#e3f9e9;border-radius:15px;font-size:26px}.player-card b{display:block}.player-card small{color:#638076;font-weight:800}.lobby-bottom{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.game-layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:16px;max-width:1280px;margin:auto}.game-main{min-width:0}.game-hud{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}.timer{background:#173f3b;color:#fff;padding:10px 15px;border-radius:15px;font-size:1.25rem;font-weight:1000;font-variant-numeric:tabular-nums;min-width:100px;text-align:center}.timer.urgent{background:#d94c43;animation:pulse 1s infinite}@keyframes pulse{50%{transform:scale(1.04)}}.map-frame{padding:9px;position:relative}.map-wrap{position:relative;overflow:hidden;border-radius:20px;background:#70d0b3;line-height:0}.map-wrap canvas{display:block;width:100%;height:auto;touch-action:none}.map-tip{position:absolute;left:17px;top:17px;background:#ffffffdf;border-radius:11px;padding:8px 11px;font-size:.76rem;font-weight:1000;line-height:1.2;pointer-events:none}.sidebar{padding:18px;height:max-content;position:sticky;top:14px}.sidebar h3{margin:0 0 12px;font-size:1.1rem}.score-list{display:flex;flex-direction:column;gap:8px}.score-row{display:flex;align-items:center;gap:9px;background:#f2fbf4;border-radius:13px;padding:10px}.score-row.me{outline:2px solid var(--teal);background:#dcf9e7}.score-icon{font-size:23px}.score-name{font-weight:1000;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}.score-points{font-weight:1000;color:var(--teal);font-variant-numeric:tabular-nums}.side-note{color:#6a887f;font-size:.83rem;line-height:1.45;margin-top:14px}.mobile-controls{display:none;justify-content:space-between;align-items:center;gap:12px;padding:12px 4px 0}.dpad{display:grid;grid-template-columns:42px 42px 42px;grid-template-rows:42px 42px 42px;gap:4px}.dpad button{border-radius:12px;background:#fff;color:var(--teal);font-weight:1000;font-size:18px;box-shadow:0 3px 0 #b4dcc7;touch-action:none;user-select:none}.dpad .up{grid-column:2}.dpad .left{grid-column:1;grid-row:2}.dpad .down{grid-column:2;grid-row:2}.dpad .right{grid-column:3;grid-row:2}.dpad .blank{visibility:hidden}.results{max-width:750px;margin:6vh auto;padding:clamp(22px,5vw,48px);text-align:center}.winner-cup{font-size:76px;line-height:1.2}.results-list{max-width:500px;margin:22px auto;display:flex;flex-direction:column;gap:9px;text-align:left}.result-row{display:flex;gap:12px;align-items:center;background:#f1fbf4;border-radius:15px;padding:14px}.rank{font-size:1.2rem;font-weight:1000;width:32px}.result-row .score-points{margin-left:auto}.result-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#163f3a;color:#fff;padding:12px 18px;border-radius:999px;box-shadow:var(--shadow);font-weight:900;z-index:10;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90vw;text-align:center}.toast.show{opacity:1}.footer{text-align:center;color:#5d8275;font-size:.78rem;padding:18px 0 6px}
+@media(max-width:850px){.hero{grid-template-columns:1fr;margin:0 auto}.art{min-height:260px;grid-row:1}.game-layout{grid-template-columns:1fr}.sidebar{position:static}.score-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}.mobile-controls{display:flex}.side-note{display:none}.hero h1{font-size:clamp(2.8rem,13vw,4.6rem)}}
+@media(max-width:520px){.app{padding:10px}.topbar{margin-bottom:10px}.tag{font-size:.7rem;padding:7px 9px}.hero{padding:17px;border-radius:22px;gap:16px}.art{min-height:210px}.island{height:150px}.chest{font-size:54px}.tree{font-size:30px}.formline{display:grid;grid-template-columns:1fr}.name-field{max-width:none}.joinbox{display:grid;grid-template-columns:1fr}.joinbox .field{max-width:none}.how{gap:6px}.how span{font-size:.75rem;padding:8px}.lobby{padding:20px;border-radius:22px}.roomcode{font-size:1.1rem}.game-hud .brand{font-size:1.1rem}.game-hud .brand-mark{width:36px;height:36px}.map-frame{padding:5px}.map-tip{top:10px;left:10px;font-size:.65rem}.sidebar{padding:14px}.score-list{grid-template-columns:1fr 1fr}.score-row{padding:8px;gap:6px}.score-name{font-size:.85rem}.score-points{font-size:.85rem}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark">🗺️</div><span>Treasure Hunt</span></div>
+    <div class="tag">🏝️ ISLAND DASH · 2 MIN</div>
+  </header>
+
+  <section id="startScreen" class="screen active">
+    <div class="hero panel">
+      <div class="hero-copy">
+        <div class="eyebrow">A tiny island. A giant adventure.</div>
+        <h1>Ready, set,<br><span>treasure!</span></h1>
+        <p class="lead">Race your friends around a sunny island, scoop up golden loot, and become the ultimate treasure legend. You have 120 seconds. Make them count!</p>
+        <label for="playerName"><b>Your explorer name</b></label>
+        <div class="formline"><input id="playerName" class="field name-field" maxlength="18" placeholder="e.g. Captain Kiwi" autocomplete="nickname"><button id="createBtn" class="btn primary">Create island ↗</button></div>
+        <b>Choose your explorer</b>
+        <div class="character-row" id="characterRow">
+          <button class="char selected" data-char="🧭" aria-label="Compass explorer">🧭</button>
+          <button class="char" data-char="🦊" aria-label="Fox explorer">🦊</button>
+          <button class="char" data-char="🐸" aria-label="Frog explorer">🐸</button>
+          <button class="char" data-char="🐼" aria-label="Panda explorer">🐼</button>
+          <button class="char" data-char="🦜" aria-label="Parrot explorer">🦜</button>
+          <button class="char" data-char="🐢" aria-label="Turtle explorer">🐢</button>
+        </div>
+        <div class="joinbox"><input id="roomCode" class="field" maxlength="6" placeholder="Room code (e.g. A1B2C3)" aria-label="Room code"><button id="joinBtn" class="btn gold">Join friends</button></div>
+        <div id="startMessage" class="message" role="status"></div>
+        <div class="how"><span>⌨️ Move with WASD / arrows</span><span>🪙 Gold = +10</span><span>💎 Rare = +25</span></div>
+      </div>
+      <div class="art" aria-hidden="true"><div class="sun"></div><div class="bird">🐦</div><div class="island"><span class="tree t1">🌴</span><span class="tree t2">🌳</span><span class="tree t3">🌴</span><span class="chest">🧰</span></div><div class="coin">🪙</div></div>
+    </div>
+  </section>
+
+  <section id="lobbyScreen" class="screen">
+    <div class="lobby panel">
+      <div class="lobby-head"><div><div class="eyebrow">Gather your crew</div><h2>Island lobby</h2><p class="lead">Share the link, invite 1–5 friends, then the host can start the dash.</p></div><div><div style="font-size:.75rem;font-weight:1000;margin-bottom:6px">ROOM CODE</div><div class="roomcode" id="lobbyCode">------</div></div></div>
+      <div class="formline"><button id="copyInviteBtn" class="btn secondary">🔗 Copy invite link</button><button id="copyCodeBtn" class="btn secondary">Copy room code</button></div>
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap"><h3 style="margin:10px 0">Explorers <span id="playerCount">1/6</span></h3><span id="hostLabel" class="tag">👑 You are the host</span></div>
+      <div id="lobbyPlayers" class="player-grid"></div>
+      <div class="lobby-bottom"><div><b id="lobbyStatus">Waiting for at least 2 players…</b><div class="side-note">Each explorer gets a unique character in the room.</div></div><button id="startGameBtn" class="btn primary" disabled>Start 2-minute game ▶</button></div>
+      <div id="lobbyMessage" class="message" role="status"></div>
+      <button id="leaveLobbyBtn" class="btn small secondary">Leave room</button>
+    </div>
+  </section>
+
+  <section id="gameScreen" class="screen">
+    <div class="game-layout">
+      <main class="game-main">
+        <div class="game-hud"><div class="brand"><div class="brand-mark">🏝️</div><span>Find the loot!</span></div><div id="timer" class="timer" aria-live="off">02:00</div><div class="tag" id="gameRoomTag">ROOM ------</div></div>
+        <div class="map-frame panel"><div class="map-wrap"><canvas id="gameCanvas" width="1200" height="760" aria-label="Shared treasure island game map"></canvas><div class="map-tip">🕹️ Move around · Touch chests to collect</div></div></div>
+        <div class="mobile-controls">
+          <div><b>Touch controls</b><div style="font-size:.78rem;color:#5d8275">Hold a direction to move</div></div>
+          <div class="dpad" aria-label="Movement controls">
+            <button class="up" data-dir="up" aria-label="Move up">▲</button>
+            <button class="left" data-dir="left" aria-label="Move left">◀</button>
+            <button class="down" data-dir="down" aria-label="Move down">▼</button>
+            <button class="right" data-dir="right" aria-label="Move right">▶</button>
+          </div>
+        </div>
+      </main>
+      <aside class="sidebar panel"><h3>🏆 Live scoreboard</h3><div id="scoreList" class="score-list"></div><div class="side-note">Chests vanish for everyone once collected. Race for the gold!<br><br>🪙 Common chest: 10 points<br>💎 Rare chest: 25 points</div></aside>
+    </div>
+  </section>
+
+  <section id="resultsScreen" class="results panel screen">
+    <div class="winner-cup">🏆</div><div class="eyebrow">Time's up, explorers!</div><h2 id="resultTitle">Island champion!</h2><p id="resultSubtitle" class="lead" style="margin:0 auto">Here are the final scores.</p>
+    <div id="resultsList" class="results-list"></div>
+    <div class="result-actions"><button id="playAgainBtn" class="btn primary">Play again ↻</button><button id="newRoomBtn" class="btn secondary">Create new island</button></div>
+    <p class="side-note">Want another round? Share a new invite link and gather your crew.</p>
+  </section>
+  <div class="footer">Made for friendly competition • One island, one shared game state.</div>
+</div>
+<div id="toast" class="toast" role="status"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const socket = io({ transports: ["websocket", "polling"] });
+  const screens = ["startScreen","lobbyScreen","gameScreen","resultsScreen"];
+  let selectedCharacter = "🧭";
+  let roomId = null, myId = null, state = null, isHost = false, gameOver = false, serverTimeOffset = 0, hasClockSync = false;
+  let latestWinners = [], keys = {up:false,down:false,left:false,right:false};
+  let inputInterval = null, toastTimeout = null, previousTreasures = new Set();
+  const canvas = $("gameCanvas"), ctx = canvas.getContext("2d");
+  const chars = ["🧭","🦊","🐸","🐼","🦜","🐢"];
+  const params = new URLSearchParams(location.search);
+  const initialRoom = params.get("room");
+  if (initialRoom) $("roomCode").value = initialRoom.toUpperCase();
+
+  function showScreen(id) { screens.forEach(s => $(s).classList.toggle("active", s === id)); }
+  function showToast(text) {
+    const el = $("toast"); el.textContent = text; el.classList.add("show");
+    clearTimeout(toastTimeout); toastTimeout = setTimeout(() => el.classList.remove("show"), 2400);
+  }
+  function setMessage(id, text) { $(id).textContent = text || ""; }
+  function nameValue() { return $("playerName").value.trim() || "Explorer"; }
+  function syncServerClock() {
+    if (socket.connected) socket.emit("timeSync", { clientSentAt: Date.now() });
+  }
+  function shareUrl() { return `${location.origin}${location.pathname}?room=${encodeURIComponent(roomId || "")}`; }
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(()=>showToast("Copied to clipboard!")).catch(()=>fallbackCopy(text));
+    else fallbackCopy(text);
+  }
+  function fallbackCopy(text) {
+    const input = document.createElement("textarea"); input.value = text; input.style.position = "fixed"; input.style.opacity = "0";
+    document.body.appendChild(input); input.select();
+    try { document.execCommand("copy"); showToast("Copied to clipboard!"); } catch (_) { showToast(text); }
+    input.remove();
+  }
+  function setCharacter(char) {
+    selectedCharacter = char;
+    document.querySelectorAll(".char").forEach(b => b.classList.toggle("selected", b.dataset.char === char));
+  }
+  document.querySelectorAll(".char").forEach(b => b.addEventListener("click", () => setCharacter(b.dataset.char)));
+
+  $("createBtn").addEventListener("click", () => {
+    setMessage("startMessage", "");
+    if (!socket.connected) return setMessage("startMessage", "Connecting… please try again in a moment.");
+    socket.emit("createRoom", { name: nameValue(), character: selectedCharacter });
+  });
+  $("joinBtn").addEventListener("click", () => {
+    const code = $("roomCode").value.trim().toUpperCase();
+    if (code.length < 4) return setMessage("startMessage", "Enter the room code from your friend's invite.");
+    setMessage("startMessage", "");
+    socket.emit("joinRoom", { roomId: code, name: nameValue(), character: selectedCharacter });
+  });
+  $("playerName").addEventListener("keydown", e => { if (e.key === "Enter") $("createBtn").click(); });
+  $("roomCode").addEventListener("keydown", e => { if (e.key === "Enter") $("joinBtn").click(); });
+  $("copyInviteBtn").addEventListener("click", () => copyText(shareUrl()));
+  $("copyCodeBtn").addEventListener("click", () => copyText(roomId || ""));
+  $("startGameBtn").addEventListener("click", () => socket.emit("startGame"));
+  $("leaveLobbyBtn").addEventListener("click", () => { socket.emit("leaveRoom"); roomId = null; state = null; showScreen("startScreen"); });
+  $("newRoomBtn").addEventListener("click", () => { roomId = null; state = null; gameOver = false; history.replaceState({}, "", location.pathname); showScreen("startScreen"); $("createBtn").click(); });
+  $("playAgainBtn").addEventListener("click", () => {
+    if (roomId) { setMessage("lobbyMessage", "The previous round is over. Create a new island for another round."); }
+    roomId = null; state = null; gameOver = false; history.replaceState({}, "", location.pathname); showScreen("startScreen");
+  });
+
+  socket.on("connect", () => {
+    $("createBtn").disabled = false;
+    syncServerClock();
+    if (window.clockSyncInterval) clearInterval(window.clockSyncInterval);
+    window.clockSyncInterval = setInterval(syncServerClock, 5000);
+  });
+  socket.on("timeSync", data => {
+    const receivedAt = Date.now();
+    const sentAt = Number(data.clientSentAt);
+    const serverAt = Number(data.serverNow);
+    if (!Number.isFinite(sentAt) || !Number.isFinite(serverAt)) return;
+    // Midpoint estimate reduces the effect of network transit time.
+    serverTimeOffset = serverAt - ((sentAt + receivedAt) / 2);
+    hasClockSync = true;
+  });
+  socket.on("disconnect", () => { if (window.clockSyncInterval) clearInterval(window.clockSyncInterval); showToast("Connection lost. Reconnecting…"); });
+  socket.on("connect_error", () => setMessage("startMessage", "Could not connect to the game server. Check the hosting URL and try again."));
+  socket.on("roomCreated", data => {
+    roomId = data.roomId; myId = data.playerId; isHost = true;
+    history.replaceState({}, "", `${location.pathname}?room=${roomId}`);
+    showScreen("lobbyScreen"); showToast("Island created! Invite your friends.");
+  });
+  socket.on("joinedRoom", data => {
+    roomId = data.roomId; myId = data.playerId; isHost = false;
+    history.replaceState({}, "", `${location.pathname}?room=${roomId}`);
+    showScreen("lobbyScreen"); showToast("You made it to the island!");
+  });
+  socket.on("joinError", msg => setMessage("startMessage", msg));
+  socket.on("errorMessage", msg => setMessage("lobbyMessage", msg));
+  socket.on("notice", msg => showToast(msg));
+  socket.on("matchStarted", () => { gameOver = false; showScreen("gameScreen"); startInputLoop(); showToast("GO GO GO! Find those treasures!"); });
+  socket.on("state", s => {
+    state = s; roomId = s.id;
+    if (!hasClockSync && Number.isFinite(s.serverNow)) serverTimeOffset = s.serverNow - Date.now();
+    if (s.status === "lobby") {
+      showScreen("lobbyScreen");
+      const me = s.players.find(p => p.id === myId);
+      isHost = s.hostSocketId === myId;
+      $("lobbyCode").textContent = s.id;
+      $("playerCount").textContent = `${s.players.length}/6`;
+      $("hostLabel").textContent = isHost ? "👑 You are the host" : "🧭 Waiting for host";
+      $("startGameBtn").style.display = isHost ? "" : "none";
+      $("startGameBtn").disabled = s.players.length < 2;
+      $("lobbyStatus").textContent = s.players.length < 2 ? "Waiting for at least 2 players…" : "Crew assembled. Ready when you are!";
+      $("lobbyPlayers").innerHTML = s.players.map(p => `<div class="player-card"><div class="player-avatar">${escapeHtml(p.character)}</div><div><b>${escapeHtml(p.name)}${p.id===myId?" (you)":""}</b><small>${p.id===s.hostSocketId?"Room host":"Explorer"}</small></div></div>`).join("");
+      if (!me) setMessage("lobbyMessage", "Your connection is no longer in this room.");
+    } else if (s.status === "playing") {
+      showScreen("gameScreen"); renderScores(); drawMap(); updateTimer();
+      if (!inputInterval) startInputLoop();
+    } else if (s.status === "finished" && !gameOver) {
+      showScreen("resultsScreen");
+    }
+  });
+  socket.on("treasureCollected", data => {
+    showToast(`${data.playerName} found ${data.points === 25 ? "a rare gem" : "a treasure"}! +${data.points}`);
+    previousTreasures.add(data.treasureId);
+  });
+  socket.on("gameOver", data => {
+    gameOver = true; latestWinners = data.winners || []; stopInputLoop();
+    const winner = latestWinners.length === 1 ? latestWinners[0] : null;
+    $("resultTitle").textContent = winner ? `${winner.character} ${winner.name} wins!` : latestWinners.length ? "It's a tie!" : "Round complete!";
+    $("resultSubtitle").textContent = winner ? `Champion with ${winner.score} points. What a treasure legend!` : latestWinners.length ? `A shared victory with ${latestWinners.map(w=>w.name).join(" and ")}!` : "The final scores are in.";
+    $("resultsList").innerHTML = (data.rankings || []).map((p,i) => `<div class="result-row"><span class="rank">${["🥇","🥈","🥉"][i] || (i+1)+"."}</span><span style="font-size:24px">${escapeHtml(p.character)}</span><b>${escapeHtml(p.name)}${p.id===myId?" (you)":""}</b><span class="score-points">${p.score} pts</span></div>`).join("");
+    showScreen("resultsScreen");
+  });
+  function escapeHtml(v) { return String(v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+  function renderScores() {
+    if (!state) return;
+    const players = [...state.players].sort((a,b)=>b.score-a.score);
+    $("scoreList").innerHTML = players.map(p => `<div class="score-row ${p.id===myId?"me":""}"><span class="score-icon">${escapeHtml(p.character)}</span><span class="score-name">${escapeHtml(p.name)}${p.id===myId?" · you":""}</span><span class="score-points">${p.score}</span></div>`).join("");
+  }
+  function updateTimer() {
+    if (!state || state.status !== "playing") return;
+    const estimatedServerNow = Date.now() + serverTimeOffset;
+    const remain = Math.max(0, state.endAt - estimatedServerNow);
+    const sec = Math.ceil(remain/1000);
+    $("timer").textContent = `${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`;
+    $("timer").classList.toggle("urgent", sec <= 15);
+  }
+  setInterval(updateTimer, 100);
+  function startInputLoop() {
+    if (inputInterval) return;
+    inputInterval = setInterval(() => {
+      if (state && state.status === "playing" && !gameOver) socket.emit("input", keys);
+    }, 45);
+  }
+  function stopInputLoop() { clearInterval(inputInterval); inputInterval = null; keys = {up:false,down:false,left:false,right:false}; }
+
+  const keyMap = {ArrowUp:"up",w:"up",W:"up",ArrowDown:"down",s:"down",S:"down",ArrowLeft:"left",a:"left",A:"left",ArrowRight:"right",d:"right",D:"right"};
+  window.addEventListener("keydown", e => {
+    const dir = keyMap[e.key];
+    if (dir && state && state.status === "playing") { keys[dir] = true; if (e.key.startsWith("Arrow")) e.preventDefault(); }
+  });
+  window.addEventListener("keyup", e => { const dir=keyMap[e.key]; if (dir) keys[dir]=false; });
+  window.addEventListener("blur", () => { keys = {up:false,down:false,left:false,right:false}; });
+  document.querySelectorAll("[data-dir]").forEach(btn => {
+    const dir = btn.dataset.dir;
+    const down = e => { e.preventDefault(); keys[dir] = true; btn.setPointerCapture?.(e.pointerId); };
+    const up = e => { e.preventDefault(); keys[dir] = false; };
+    btn.addEventListener("pointerdown", down);
+    btn.addEventListener("pointerup", up);
+    btn.addEventListener("pointercancel", up);
+    btn.addEventListener("lostpointercapture", up);
+    btn.addEventListener("contextmenu", e => e.preventDefault());
+  });
+
+  function drawMap() {
+    if (!state) return;
+    const w=canvas.width,h=canvas.height;
+    ctx.clearRect(0,0,w,h);
+    // Ocean and gentle waves
+    const sea = ctx.createLinearGradient(0,0,w,h); sea.addColorStop(0,"#73d8cf"); sea.addColorStop(1,"#45b9b5");
+    ctx.fillStyle=sea;ctx.fillRect(0,0,w,h);
+    ctx.save();ctx.globalAlpha=.2;ctx.strokeStyle="#fff";ctx.lineWidth=3;
+    for(let y=24;y<h;y+=48){ctx.beginPath();for(let x=0;x<=w;x+=20){ctx.lineTo(x,y+Math.sin((x+y)*.025)*5)}ctx.stroke()}ctx.restore();
+    // Main sandy island
+    ctx.fillStyle="#f5d48a";ctx.beginPath();ctx.ellipse(600,380,555,340,-.025,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle="#8cdb8a";ctx.beginPath();ctx.ellipse(600,373,520,309,-.025,0,Math.PI*2);ctx.fill();
+    // Grass patches
+    for(let i=0;i<80;i++){
+      const x=70+((i*173)%1060), y=55+((i*97)%650);
+      if(((x-600)/520)**2+((y-373)/309)**2 < .86){
+        ctx.fillStyle=i%2?"#70cb77":"#9ae28a";ctx.globalAlpha=.34;ctx.beginPath();ctx.ellipse(x,y,12+(i%7),5+(i%4),i*.3,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
+      }
+    }
+    // River winding through island
+    ctx.lineCap="round";ctx.lineJoin="round";ctx.strokeStyle="#f4d58c";ctx.lineWidth=72;ctx.beginPath();ctx.moveTo(170,235);ctx.bezierCurveTo(350,170,340,490,570,420);ctx.bezierCurveTo(760,360,740,210,1000,270);ctx.stroke();
+    ctx.strokeStyle="#72d9e8";ctx.lineWidth=57;ctx.beginPath();ctx.moveTo(170,235);ctx.bezierCurveTo(350,170,340,490,570,420);ctx.bezierCurveTo(760,360,740,210,1000,270);ctx.stroke();
+    // Landmarks
+    drawEmoji("🌴",90,120,42);drawEmoji("🌴",1070,110,42);drawEmoji("🌳",1080,550,40);drawEmoji("🌴",115,585,40);drawEmoji("🪨",345,225,27);drawEmoji("🪨",825,520,28);drawEmoji("⛺",605,145,44);drawEmoji("🛖",920,445,42);
+    // Path hints
+    ctx.save();ctx.setLineDash([8,12]);ctx.strokeStyle="#fff5c4";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(170,235);ctx.quadraticCurveTo(600,60,1000,270);ctx.stroke();ctx.restore();
+    // Treasures
+    for(const t of state.treasures||[]){
+      if(t.collected) continue;
+      ctx.save();ctx.shadowColor="#7a5a17";ctx.shadowBlur=9;ctx.shadowOffsetY=4;
+      ctx.fillStyle=t.kind==="rare"?"#a68cff":"#a96731";
+      roundRect(ctx,t.x-19,t.y-12,38,27,7);ctx.fill();
+      ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.fillStyle=t.kind==="rare"?"#5f48b4":"#7d4725";roundRect(ctx,t.x-21,t.y-17,42,13,5);ctx.fill();
+      ctx.fillStyle=t.kind==="rare"?"#fff0a4":"#ffdf6c";ctx.fillRect(t.x-3,t.y-9,6,18);
+      ctx.restore();drawEmoji(t.kind==="rare"?"💎":"✨",t.x,t.y-30,22);
+      ctx.fillStyle="#174b40";ctx.font="1000 15px Nunito, sans-serif";ctx.textAlign="center";ctx.fillText("+"+t.points,t.x,t.y+32);
+    }
+    // Players and nameplates
+    for(const p of state.players||[]){
+      ctx.save();ctx.globalAlpha=p.connected===false?.5:1;
+      ctx.fillStyle="#194c3e33";ctx.beginPath();ctx.ellipse(p.x,p.y+18,22,8,0,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle=p.id===myId?"#fff3a8":"#ffffff";ctx.strokeStyle=p.id===myId?"#efab24":"#fff";ctx.lineWidth=4;
+      ctx.beginPath();ctx.arc(p.x,p.y,22,0,Math.PI*2);ctx.fill();ctx.stroke();
+      drawEmoji(p.character,p.x,p.y+1,29);
+      const label=p.name+(p.id===myId?" (you)":"");
+      ctx.font="1000 16px Nunito, sans-serif";const tw=ctx.measureText(label).width;
+      ctx.fillStyle="#17483f";roundRect(ctx,p.x-tw/2-8,p.y-48,tw+16,23,8);ctx.fill();
+      ctx.fillStyle="#fff";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(label,p.x,p.y-36);
+      ctx.restore();
+    }
+  }
+  function drawEmoji(char,x,y,size){
+    ctx.save();ctx.font=`${size}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(char,x,y);ctx.restore();
+  }
+  function roundRect(c,x,y,w,h,r){
+    c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();
+  }
+  // Render fresh server state continuously for smooth visual refresh.
+  setInterval(() => { if(state && state.status==="playing") { drawMap(); renderScores(); } }, 50);
+  window.addEventListener("resize", () => { if(state && state.status==="playing") drawMap(); });
+})();
+</script>
+</body>
+</html>
